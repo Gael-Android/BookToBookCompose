@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,9 +44,17 @@ class InitialSettingActivity : ComponentActivity() {
             InitialSettingScreen(viewModel)
         }
     }
+}
 
-    private val startForProfileImageResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+@Composable
+fun InitialSettingScreen(viewModel: InitialSettingViewModel = viewModel()) {
+    val context = LocalContext.current
+    val displayName: String by viewModel.displayName.observeAsState("")
+    val belong: String by viewModel.belong.observeAsState("")
+    val imageUri: Uri? by viewModel.imageUri.observeAsState(null)
+
+    val startForProfileImageResult =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             val resultCode = result.resultCode
             val data = result.data
             when (resultCode) {
@@ -53,16 +63,16 @@ class InitialSettingActivity : ComponentActivity() {
                     viewModel.setImageUri(fileUri)
                 }
                 ImagePicker.RESULT_ERROR -> {
-                    Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
                 }
                 else -> {
-                    Toast.makeText(this, "Task Canceled", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Task Canceled", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-    private fun launchImageLauncher() {
-        ImagePicker.with(this)
+    val imageLaunch = {
+        ImagePicker.with(context as Activity)
             .compress(1024)
             .crop(1f, 1f)
             .createIntent { intent ->
@@ -70,25 +80,18 @@ class InitialSettingActivity : ComponentActivity() {
             }
     }
 
-    @Composable
-    fun InitialSettingScreen(viewModel: InitialSettingViewModel = viewModel()) {
-        val displayName: String by viewModel.displayName.observeAsState("")
-        val belong: String by viewModel.belong.observeAsState("")
-        val imageUri: Uri? by viewModel.imageUri.observeAsState(null)
-
-        InitialSetting(
-            displayName = displayName,
-            belong = belong,
-            imageUri = imageUri,
-            onSubmitButtonClick = { viewModel.onSubmitButtonClick() },
-            onProfileImageClick = {
-                launchImageLauncher()
-                viewModel.onProfileImageClick()
-            },
-            onDisplayNameChanged = { viewModel.onDisplayNameChanged(it) },
-            onBelongChanged = { viewModel.onBelongChanged(it) }
-        )
-    }
+    InitialSetting(
+        displayName = displayName,
+        belong = belong,
+        imageUri = imageUri,
+        onSubmitButtonClick = { viewModel.onSubmitButtonClick() },
+        onProfileImageClick = {
+            imageLaunch()
+            viewModel.onProfileImageClick()
+        },
+        onDisplayNameChanged = { viewModel.onDisplayNameChanged(it) },
+        onBelongChanged = { viewModel.onBelongChanged(it) }
+    )
 }
 
 @Composable
