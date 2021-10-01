@@ -1,18 +1,21 @@
 package com.eggtart.booktobookcompose.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.eggtart.booktobookcompose.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.BuildConfig
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : ComponentActivity() {
@@ -26,9 +29,21 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen() {
+    val context = LocalContext.current
+    val startInitialSettingActivity = {
+        context.startActivity(Intent(context, InitialSettingActivity::class.java))
+    }
+    
     val signInLauncher =
-        rememberLauncherForActivityResult(FirebaseAuthUIActivityResultContract()) { res ->
-            onSignInResult(res)
+        rememberLauncherForActivityResult(FirebaseAuthUIActivityResultContract()) { result ->
+            val response = result.idpResponse
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                val user = FirebaseAuth.getInstance().currentUser
+                Log.d("KWK", "NEW LOGIN : ${user?.uid} / ${user?.email}")
+                startInitialSettingActivity()
+            } else {
+                Log.d("KWK", response?.error.toString())
+            }
         }
 
     val providers = arrayListOf(
@@ -52,6 +67,7 @@ fun LoginScreen() {
     val user = FirebaseAuth.getInstance().currentUser
     if (user != null) {
         Log.d("KWK", "Hello ${user.displayName}")
+        startInitialSettingActivity()
     } else {
         SideEffect {
             signInLauncher.launch(signInIntent)
@@ -59,12 +75,3 @@ fun LoginScreen() {
     }
 }
 
-private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
-    val response = result.idpResponse
-    if (result.resultCode == AppCompatActivity.RESULT_OK) {
-        val user = FirebaseAuth.getInstance().currentUser
-        Log.d("KWK", "NEW LOGIN : ${user?.uid} / ${user?.email}")
-    } else {
-        Log.d("KWK", response?.error.toString())
-    }
-}
