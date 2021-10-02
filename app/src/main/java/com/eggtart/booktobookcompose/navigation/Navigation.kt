@@ -1,4 +1,4 @@
-package com.eggtart.booktobookcompose
+package com.eggtart.booktobookcompose.navigation
 
 import android.os.Bundle
 import android.util.Log
@@ -9,10 +9,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.bumptech.glide.Glide.init
-import com.eggtart.booktobookcompose.activity.InitialSettingScreen
-import com.eggtart.booktobookcompose.activity.LoginScreen
-import com.eggtart.booktobookcompose.activity.TestScreen
+import com.eggtart.booktobookcompose.screen.InitialSettingScreen
+import com.eggtart.booktobookcompose.screen.LoginScreen
 import com.eggtart.booktobookcompose.viewmodel.InitialSettingViewModel
 
 @Composable

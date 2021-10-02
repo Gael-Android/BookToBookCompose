@@ -1,4 +1,4 @@
-package com.eggtart.booktobookcompose
+package com.eggtart.booktobookcompose.navigation
 
 sealed class Screen(val route: String) {
     object LoginScreen : Screen("LoginScreen")

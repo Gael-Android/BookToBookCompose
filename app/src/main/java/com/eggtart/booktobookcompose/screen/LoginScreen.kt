@@ -1,36 +1,17 @@
-package com.eggtart.booktobookcompose.activity
+package com.eggtart.booktobookcompose.screen
 
-import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.eggtart.booktobookcompose.R
-import com.eggtart.booktobookcompose.Screen
-import com.eggtart.booktobookcompose.ui.theme.BookToBookComposeTheme
+import com.eggtart.booktobookcompose.navigation.Screen
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.BuildConfig
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
-
-//class LoginActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            LoginScreen()
-//        }
-//    }
-//}
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -40,10 +21,8 @@ fun LoginScreen(navController: NavController) {
 
     Log.d("KWK", "LoginScreen")
 
-//    val context = LocalContext.current
     val startInitialSettingActivity = {
         Log.d("KWK", "startInitialSettingActivity")
-//        context.startActivity(Intent(context, InitialSettingActivity::class.java))
         navController.navigate(Screen.InitScreen.route) {
             popUpTo(Screen.LoginScreen.route) {
                 inclusive = true

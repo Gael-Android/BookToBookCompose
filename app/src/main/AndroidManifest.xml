@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookToBookCompose">
         <activity
-            android:name=".HomeActivity"
+            android:name=".navigation.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

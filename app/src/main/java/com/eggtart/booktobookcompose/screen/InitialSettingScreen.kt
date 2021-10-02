@@ -1,16 +1,12 @@
-package com.eggtart.booktobookcompose.activity
+package com.eggtart.booktobookcompose.screen
 
 import android.app.Activity
 import android.net.Uri
-import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -28,23 +24,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eggtart.booktobookcompose.R
 import com.eggtart.booktobookcompose.ui.theme.BookToBookComposeTheme
 import com.eggtart.booktobookcompose.viewmodel.InitialSettingViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.skydoves.landscapist.glide.GlideImage
-
-//class InitialSettingActivity : ComponentActivity() {
-//    private val viewModel: InitialSettingViewModel by viewModels()
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContent {
-//            InitialSettingScreen(viewModel)
-//        }
-//    }
-//}
 
 @Composable
 fun InitialSettingScreen(viewModel: InitialSettingViewModel) {
