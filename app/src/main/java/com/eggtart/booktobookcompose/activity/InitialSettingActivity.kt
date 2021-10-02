@@ -35,19 +35,20 @@ import com.eggtart.booktobookcompose.viewmodel.InitialSettingViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.skydoves.landscapist.glide.GlideImage
 
-class InitialSettingActivity : ComponentActivity() {
-    private val viewModel: InitialSettingViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            InitialSettingScreen(viewModel)
-        }
-    }
-}
+//class InitialSettingActivity : ComponentActivity() {
+//    private val viewModel: InitialSettingViewModel by viewModels()
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            InitialSettingScreen(viewModel)
+//        }
+//    }
+//}
 
 @Composable
-fun InitialSettingScreen(viewModel: InitialSettingViewModel = viewModel()) {
+fun InitialSettingScreen(viewModel: InitialSettingViewModel) {
+    Log.d("KWK", "InitialSettingScreen")
     val context = LocalContext.current
     val displayName: String by viewModel.displayName.observeAsState("")
     val belong: String by viewModel.belong.observeAsState("")
@@ -104,6 +105,7 @@ fun InitialSetting(
     onDisplayNameChanged: (String) -> Unit,
     onBelongChanged: (String) -> Unit,
 ) {
+    Log.d("KWK", "InitialSetting")
     BookToBookComposeTheme {
         // A surface container using the 'background' color from the theme
         Surface(color = MaterialTheme.colors.background) {

@@ -16,6 +16,7 @@ class InitialSettingViewModel : ViewModel() {
     val imageUri = MutableLiveData<Uri?>()
 
     init {
+        Log.d(TAG,"InitialSettingViewModel INIT")
         viewModelScope.launch(Dispatchers.IO) {
             displayName.postValue(InitialSettingFireStore.getDisplayName())
         }
