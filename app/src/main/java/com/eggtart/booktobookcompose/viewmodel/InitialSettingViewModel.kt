@@ -16,17 +16,20 @@ class InitialSettingViewModel : ViewModel() {
     val imageUri = MutableLiveData<Uri?>()
 
     init {
-        Log.d(TAG,"InitialSettingViewModel INIT")
+        Log.d(TAG, "InitialSettingViewModel INIT")
         viewModelScope.launch(Dispatchers.IO) {
             displayName.postValue(InitialSettingFireStore.getDisplayName())
+            belong.postValue(InitialSettingFireStore.getBelong())
         }
     }
 
     fun onSubmitButtonClick() {
         Log.d(TAG, "onSubmitButtonClick")
-        InitialSettingFireStore.updateDisplayName(displayName.value)
-        InitialSettingFireStore.updateBelong(belong.value)
-        InitialSettingFireStore.uploadProfileImage(imageUri.value)
+        viewModelScope.launch(Dispatchers.IO) {
+            InitialSettingFireStore.updateDisplayName(displayName.value)
+            InitialSettingFireStore.updateBelong(belong.value)
+            InitialSettingFireStore.uploadProfileImage(imageUri.value)
+        }
     }
 
     fun onProfileImageClick() {

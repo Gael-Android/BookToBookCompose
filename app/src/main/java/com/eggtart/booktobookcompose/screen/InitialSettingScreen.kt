@@ -32,11 +32,11 @@ import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun InitialSettingScreen(viewModel: InitialSettingViewModel) {
-    Log.d("KWK", "InitialSettingScreen")
     val context = LocalContext.current
     val displayName: String by viewModel.displayName.observeAsState("")
     val belong: String by viewModel.belong.observeAsState("")
     val imageUri: Uri? by viewModel.imageUri.observeAsState(null)
+    Log.d("KWK", "InitialSettingScreen")
 
     val startForProfileImageResult =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -66,8 +66,18 @@ fun InitialSettingScreen(viewModel: InitialSettingViewModel) {
     }
 
     InitialSetting(
-        displayName = displayName,
-        belong = belong,
+        displayName =
+        if (displayName == "null") {
+            ""
+        } else {
+            displayName
+        },
+        belong =
+        if (belong == "null") {
+            ""
+        } else {
+            belong
+        },
         imageUri = imageUri,
         onSubmitButtonClick = { viewModel.onSubmitButtonClick() },
         onProfileImageClick = {

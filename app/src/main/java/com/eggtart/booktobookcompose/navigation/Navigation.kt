@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.eggtart.booktobookcompose.screen.InitialSettingScreen
 import com.eggtart.booktobookcompose.screen.LoginScreen
 import com.eggtart.booktobookcompose.viewmodel.InitialSettingViewModel
+import com.firebase.ui.auth.AuthUI
 
 @Composable
 fun Navigation() {

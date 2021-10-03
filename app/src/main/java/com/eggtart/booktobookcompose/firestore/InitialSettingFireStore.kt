@@ -12,12 +12,15 @@ object InitialSettingFireStore {
     private const val TAG = "KWK_InitialSettingFS"
     private val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
-    fun updateDisplayName(displayName: String?) {
+    suspend fun updateDisplayName(displayName: String?) {
         val db = Firebase.firestore
-        db.collection("user").document(uid)
-            .update("displayName", displayName)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+        try {
+            db.collection("user").document(uid)
+                .update("displayName", displayName)
+                .await()
+        } catch (exception: Exception) {
+            Log.d(TAG, "Error updating document", exception)
+        }
     }
 
     suspend fun getDisplayName(): String? {
@@ -33,24 +36,59 @@ object InitialSettingFireStore {
         }
     }
 
-    fun updateBelong(belong: String?) {
+    suspend fun getBelong(): String? {
         val db = Firebase.firestore
-        db.collection("user").document(uid)
-            .update("belong", belong)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+        return try {
+            db.collection("user").document(uid)
+                .get()
+                .await()
+                .data?.get("belong").toString()
+        } catch (exception: Exception) {
+            Log.d("KWK", "get failed with ", exception)
+            ""
+        }
     }
 
-    fun uploadProfileImage(imageUri: Uri?) {
+    suspend fun updateBelong(belong: String?) {
+        val db = Firebase.firestore
+        try {
+            db.collection("user").document(uid)
+                .update("belong", belong)
+                .await()
+        } catch (exception: Exception) {
+            Log.d(TAG, "Error updating document", exception)
+        }
+    }
+
+    suspend fun uploadProfileImage(imageUri: Uri?) {
         val storageRef = Firebase.storage.reference
 
         if (imageUri != null) {
-            storageRef.child("user_images/${uid}")
-                .putFile(imageUri)
-                .addOnFailureListener { Log.d(TAG, "User Image upload fail!") }
-                .addOnSuccessListener { Log.d(TAG, "User Image successfully upload!") }
+            try {
+                storageRef.child("user_images/${uid}")
+                    .putFile(imageUri)
+                    .await()
+            } catch (exception: Exception) {
+                Log.d(TAG, "User Image upload fail!")
+            }
         } else {
             Log.d(TAG, "image Uri is null!!!")
+        }
+    }
+
+    @Deprecated("app design not ready for this feature")
+    suspend fun downloadProfileImage(): ByteArray? {
+        val user = FirebaseAuth.getInstance().currentUser
+        val storageReference = Firebase.storage.reference
+        val pathReference = storageReference.child("user_images/${user?.uid}")
+        val ONE_MEGABYTE: Long = 1024 * 1024
+        return try {
+            pathReference
+                .getBytes(ONE_MEGABYTE)
+                .await()
+        } catch (exception: Exception) {
+            Log.d(TAG, "User Image download fail!")
+            null
         }
     }
 }

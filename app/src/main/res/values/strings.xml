@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BookToBookCompose</string>
     <string name="title_activity_initial_setting">InitialSettingActivity</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>
