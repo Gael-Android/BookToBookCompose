@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.eggtart.booktobookcompose.R
 import com.eggtart.booktobookcompose.ui.theme.BookToBookComposeTheme
 import com.eggtart.booktobookcompose.viewmodel.InitialSettingViewModel

@@ -5,12 +5,15 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.eggtart.booktobookcompose.firestore.InitialSettingFireStore
-import com.google.firebase.storage.ktx.storage
+import com.eggtart.booktobookcompose.navigation.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class InitialSettingViewModel : ViewModel() {
+class InitialSettingViewModel constructor(
+    private val navController: NavController
+) : ViewModel() {
     val displayName = MutableLiveData("")
     val belong = MutableLiveData("")
     val imageUri = MutableLiveData<Uri?>()
@@ -30,6 +33,7 @@ class InitialSettingViewModel : ViewModel() {
             InitialSettingFireStore.updateBelong(belong.value)
             InitialSettingFireStore.uploadProfileImage(imageUri.value)
         }
+        navController.navigate(Screen.MainScreen.route)
     }
 
     fun onProfileImageClick() {

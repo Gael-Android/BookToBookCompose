@@ -23,7 +23,7 @@ fun LoginScreen(navController: NavController) {
 
     val startInitialSettingActivity = {
         Log.d("KWK", "startInitialSettingActivity")
-        navController.navigate(Screen.InitScreen.route) {
+        navController.navigate(Screen.InitialSettingScreen.route) {
             popUpTo(Screen.LoginScreen.route) {
                 inclusive = true
             }

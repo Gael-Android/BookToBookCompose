@@ -3,15 +3,12 @@ package com.eggtart.booktobookcompose.screen
 import android.Manifest
 import android.app.Activity
 import android.util.Log
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.app.ActivityCompat
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import com.journeyapps.barcodescanner.CaptureManager
@@ -20,10 +17,6 @@ import com.journeyapps.barcodescanner.CompoundBarcodeView
 @ExperimentalPermissionsApi
 @Composable
 fun BarcodeScanScreen() {
-    var doNotShowRational by rememberSaveable {
-        mutableStateOf(false)
-    }
-
     var scanFlag by remember {
         mutableStateOf(false)
     }
