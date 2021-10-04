@@ -13,15 +13,17 @@
             android:name=".screen.TestActivity"
             android:exported="true"
             android:label="@string/title_activity_test"
-            android:theme="@style/Theme.BookToBookCompose.NoActionBar" />
-        <activity
-            android:name=".navigation.HomeActivity"
-            android:exported="true">
+            android:theme="@style/Theme.BookToBookCompose.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".navigation.HomeActivity"
+            android:exported="true">
         </activity>
     </application>
 
