@@ -1,9 +1,11 @@
-package com.eggtart.booktobookcompose.screen.barcode
+package com.eggtart.booktobookcompose.screen.content.bottom
+
 
 import android.Manifest
 import android.app.Activity
 import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -13,9 +15,10 @@ import com.google.accompanist.permissions.rememberPermissionState
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.CompoundBarcodeView
 
+
 @ExperimentalPermissionsApi
 @Composable
-fun BarcodeScanScreen() {
+fun EnrollScreen() {
     var scanFlag by remember {
         mutableStateOf(false)
     }

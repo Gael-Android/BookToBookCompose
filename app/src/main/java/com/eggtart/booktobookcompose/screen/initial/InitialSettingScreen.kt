@@ -66,18 +66,8 @@ fun InitialSettingScreen(viewModel: InitialSettingViewModel) {
     }
 
     InitialSetting(
-        displayName =
-        if (displayName == "null") {
-            ""
-        } else {
-            displayName
-        },
-        belong =
-        if (belong == "null") {
-            ""
-        } else {
-            belong
-        },
+        displayName = displayName,
+        belong = belong,
         imageUri = imageUri,
         onSubmitButtonClick = { viewModel.onSubmitButtonClick() },
         onProfileImageClick = {

@@ -9,16 +9,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.eggtart.booktobookcompose.navigation.BottomNavigation
 import com.eggtart.booktobookcompose.screen.ChatScreen
 import com.eggtart.booktobookcompose.screen.content.bottom.BookcaseScreen
+import com.eggtart.booktobookcompose.screen.content.bottom.EnrollScreen
 import com.eggtart.booktobookcompose.screen.content.bottom.HomeScreen
 import com.eggtart.booktobookcompose.screen.content.bottom.ProfileScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 
+@ExperimentalPermissionsApi
 @ExperimentalFoundationApi
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
@@ -42,6 +44,9 @@ fun ContentScreen() {
                 composable(BottomNavigation.Profile.route) {
                     ProfileScreen()
                 }
+                composable(BottomNavigation.Enroll.route) {
+                    EnrollScreen()
+                }
             }
         }
     }
@@ -53,7 +58,8 @@ fun BottomBar(navController: NavController) {
         BottomNavigation.Chat,
         BottomNavigation.Home,
         BottomNavigation.Bookcase,
-        BottomNavigation.Profile
+        BottomNavigation.Profile,
+        BottomNavigation.Enroll
     )
 
     BottomNavigation(elevation = 10.dp) {
@@ -74,11 +80,7 @@ fun BottomBar(navController: NavController) {
                 onClick = {
                     navController.navigate(it.route)
                 }
-
             )
-
         }
-
-
     }
 }
