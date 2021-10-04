@@ -54,8 +54,9 @@ fun Navigation() {
             LoginScreen(navController)
         }
         composable(route = Screen.InitialSettingScreen.route) {
-            val viewModel = InitialSettingViewModel(navController)
-            InitialSettingScreen(viewModel)
+//            val viewModel = InitialSettingViewModel(navController)
+//            InitialSettingScreen(viewModel)
+            InitialSettingScreen(InitialSettingViewModel(navController))
         }
         composable(route = Screen.ContentScreen.route) {
             ContentScreen()

@@ -24,14 +24,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eggtart.booktobookcompose.R
 import com.eggtart.booktobookcompose.ui.theme.BookToBookComposeTheme
 import com.eggtart.booktobookcompose.viewmodel.InitialSettingViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.skydoves.landscapist.glide.GlideImage
 
+
 @Composable
-fun InitialSettingScreen(viewModel: InitialSettingViewModel) {
+fun InitialSettingScreen(viewModel: InitialSettingViewModel = viewModel()) {
     val context = LocalContext.current
     val displayName: String by viewModel.displayName.observeAsState("")
     val belong: String by viewModel.belong.observeAsState("")
