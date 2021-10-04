@@ -1,7 +1,9 @@
-package com.eggtart.booktobookcompose.screen
+package com.eggtart.booktobookcompose.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
+import com.eggtart.booktobookcompose.screen.RecentScreen
+import com.eggtart.booktobookcompose.screen.content.tabs.*
 
 typealias ComposableFun = @Composable () -> Unit
 

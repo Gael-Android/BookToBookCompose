@@ -1,11 +1,10 @@
-package com.eggtart.booktobookcompose.screen
+package com.eggtart.booktobookcompose.screen.login
 
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.eggtart.booktobookcompose.R
 import com.eggtart.booktobookcompose.navigation.Screen
 import com.firebase.ui.auth.AuthUI
@@ -14,7 +13,7 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavHostController) {
     var isOnceLogIn by remember {
         mutableStateOf(false)
     }

@@ -1,11 +1,10 @@
-package com.eggtart.booktobookcompose.screen
+package com.eggtart.booktobookcompose.screen.barcode
 
 import android.Manifest
 import android.app.Activity
 import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView

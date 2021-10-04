@@ -33,7 +33,7 @@ class InitialSettingViewModel constructor(
             InitialSettingFireStore.updateBelong(belong.value)
             InitialSettingFireStore.uploadProfileImage(imageUri.value)
         }
-        navController.navigate(Screen.MainScreen.route)
+        navController.navigate(Screen.ContentScreen.route)
     }
 
     fun onProfileImageClick() {

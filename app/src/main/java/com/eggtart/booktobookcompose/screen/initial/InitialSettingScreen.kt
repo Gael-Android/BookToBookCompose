@@ -1,4 +1,4 @@
-package com.eggtart.booktobookcompose.screen
+package com.eggtart.booktobookcompose.screen.initial
 
 import android.app.Activity
 import android.net.Uri
@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.eggtart.booktobookcompose.R
 import com.eggtart.booktobookcompose.ui.theme.BookToBookComposeTheme
 import com.eggtart.booktobookcompose.viewmodel.InitialSettingViewModel
@@ -160,14 +159,6 @@ fun SubmitButton(onClick: () -> Unit) {
     }
 }
 
-@Preview
-@Composable
-fun PreviewSubmitButton() {
-    SubmitButton {
-        Log.d("KWK_PREVIEW", "Submit Button Click!")
-    }
-}
-
 @Composable
 fun DisplayNameInput(displayName: String, onDisplayNameChanged: (String) -> Unit) {
     TextField(
@@ -177,16 +168,6 @@ fun DisplayNameInput(displayName: String, onDisplayNameChanged: (String) -> Unit
     )
 }
 
-@Preview
-@Composable
-fun PreviewDisplayNameInput() {
-
-    DisplayNameInput(displayName = "임의의 이름") {
-        Log.d("KWK_PREVIEW", "onDisplayNameChanged:$it")
-    }
-
-}
-
 @Composable
 fun BelongInput(belong: String, onBelongChanged: (String) -> Unit) {
     TextField(
@@ -194,17 +175,6 @@ fun BelongInput(belong: String, onBelongChanged: (String) -> Unit) {
         onValueChange = onBelongChanged,
         label = { Text("belong") }
     )
-}
-
-
-@Preview
-@Composable
-fun PreviewBelongInput() {
-
-    BelongInput("임의의 장소") {
-        Log.d("KWK_PREVIEW", "onBelongChanged:$it")
-    }
-
 }
 
 @Composable
@@ -249,13 +219,4 @@ fun ProfileImage(imageUri: Uri?, onProfileImageClick: () -> Unit) {
     }
 }
 
-@Preview
-@Composable
-fun PreviewProfileImage() {
-
-    ProfileImage(imageUri = null) {
-        Log.d("KWK_PREVIEW", "onProfileImageClick")
-    }
-
-}
 
