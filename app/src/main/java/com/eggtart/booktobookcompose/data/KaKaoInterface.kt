@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface KaKaoInterface {
 
     @Headers("Authorization: KakaoAK ${KaKaoSettings.serviceKey}")
-    @GET("/search/book?target=isbn")
+    @GET("v3/search/book?target=isbn")
     suspend fun getBooks(
         @Query("query") query: Long
     ): BookData

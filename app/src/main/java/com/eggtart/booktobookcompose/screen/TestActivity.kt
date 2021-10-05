@@ -8,9 +8,9 @@ import androidx.activity.viewModels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -26,13 +26,13 @@ class TestViewModel : ViewModel() {
         MutableLiveData<BookData>()
     }
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            getBooks()
-        }
-    }
+//    init {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            getBooks()
+//        }
+//    }
 
-    private fun getBooks() {
+    fun getBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             value.postValue(
                 RetrofitClass.getApiService()
@@ -44,11 +44,9 @@ class TestViewModel : ViewModel() {
 
 @Composable
 fun TestScreen(viewModel: TestViewModel) {
-    val bookDataObserver = Observer<BookData> {
-        Log.d("++++++++++++++++", it.meta.total_count.toString())
-    }
-
-    viewModel.value.observeForever(bookDataObserver)
+    viewModel.value.observe(LocalLifecycleOwner.current, { bookData ->
+        Log.d("ASDASF", bookData.toString())
+    })
 }
 
 class TestActivity : ComponentActivity() {
@@ -56,6 +54,7 @@ class TestActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        model.getBooks()
         setContent {
             BookToBookComposeTheme {
                 // A surface container using the 'background' color from the theme
