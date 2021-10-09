@@ -1,4 +1,4 @@
-package com.eggtart.booktobookcompose.navigation
+package com.eggtart.booktobookcompose.screen.content.tabs
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable

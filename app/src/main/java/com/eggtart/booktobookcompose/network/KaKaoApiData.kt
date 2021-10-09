@@ -1,4 +1,4 @@
-package com.eggtart.booktobookcompose.data
+package com.eggtart.booktobookcompose.network
 
 data class BookData(
     val meta: Meta,

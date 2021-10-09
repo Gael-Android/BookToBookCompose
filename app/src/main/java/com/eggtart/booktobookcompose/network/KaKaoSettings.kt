@@ -1,4 +1,4 @@
-package com.eggtart.booktobookcompose.data
+package com.eggtart.booktobookcompose.network
 
 object KaKaoSettings {
     const val baseUrl: String = "https://dapi.kakao.com/"
