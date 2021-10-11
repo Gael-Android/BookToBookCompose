@@ -1,10 +1,15 @@
 package com.eggtart.booktobookcompose.network
 
+import android.util.Log
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.components.ViewModelComponent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.runBlocking
+import okhttp3.Dispatcher
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -39,11 +44,23 @@ class KakaoModule {
     }
 }
 
-class KaKaoRepository @Inject constructor(
+class KaKaoRemoteSource @Inject constructor(
     private val kaKaoService: KaKaoService
 ) {
-    suspend fun getBooks(query: Long): BookData = kaKaoService.getBooks(query)
+    val books: Flow<BookData> = flow {
+            val books = kaKaoService.getBooks(9788901229614)
+            Log.d("KWK_REMOTE", books.toString())
+            emit(books)
+    }
 }
+
+class KaKaoRepository @Inject constructor(
+    kaKaoRemoteSource: KaKaoRemoteSource
+) {
+    val books: Flow<BookData> = kaKaoRemoteSource.books
+        .filterNotNull()
+}
+
 
 
 
