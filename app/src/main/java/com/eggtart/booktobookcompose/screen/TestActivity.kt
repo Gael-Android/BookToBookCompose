@@ -14,18 +14,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eggtart.booktobookcompose.network.BookData
-import com.eggtart.booktobookcompose.network.KaKaoInterface
 import com.eggtart.booktobookcompose.ui.theme.BookToBookComposeTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.eggtart.booktobookcompose.network.KaKaoRepository
+import com.eggtart.booktobookcompose.network.KaKaoService
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @HiltViewModel
 class TestViewModel @Inject constructor(
-    private val kaKaoService: KaKaoInterface
+    private val kaKaoRepository: KaKaoRepository
 ) : ViewModel() {
     val value: MutableLiveData<BookData> by lazy {
         MutableLiveData<BookData>()
@@ -40,7 +41,7 @@ class TestViewModel @Inject constructor(
     private fun getBooks() {
         viewModelScope.launch(Dispatchers.IO) {
             value.postValue(
-                kaKaoService.getBooks(9788901229614)
+                kaKaoRepository.getBooks(9788901229614)
             )
         }
     }
