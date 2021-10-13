@@ -47,18 +47,20 @@ class KakaoModule {
 class KaKaoRemoteSource @Inject constructor(
     private val kaKaoService: KaKaoService
 ) {
-    val books: Flow<BookData> = flow {
-            val books = kaKaoService.getBooks(9788901229614)
-            Log.d("KWK_REMOTE", books.toString())
-            emit(books)
+    fun getBooks(query: Long): Flow<BookData> = flow {
+        val books = kaKaoService.getBooks(query)
+        Log.d("KWK_REMOTE", books.toString())
+        emit(books)
     }
 }
 
 class KaKaoRepository @Inject constructor(
     kaKaoRemoteSource: KaKaoRemoteSource
 ) {
-    val books: Flow<BookData> = kaKaoRemoteSource.books
-        .filterNotNull()
+    val books: Flow<Meta> = kaKaoRemoteSource.getBooks(9788901229614).map {
+        Log.d("KWK_REPO", it.toString())
+        it.meta
+    }
 }
 
 
