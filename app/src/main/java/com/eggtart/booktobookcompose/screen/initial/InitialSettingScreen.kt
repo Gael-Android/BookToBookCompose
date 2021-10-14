@@ -45,6 +45,7 @@ fun InitialSettingScreen(viewModel: InitialSettingViewModel = viewModel()) {
             val resultCode = result.resultCode
             val data = result.data
             when (resultCode) {
+
                 Activity.RESULT_OK -> {
                     val fileUri = data?.data!!
                     viewModel.setImageUri(fileUri)

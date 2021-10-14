@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.eggtart.booktobookcompose.firestore.InitialSettingFireStore
+import com.eggtart.booktobookcompose.firestore.UserFireStore
 import com.eggtart.booktobookcompose.navigation.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,17 +21,17 @@ class InitialSettingViewModel constructor(
     init {
         Log.d(TAG, "InitialSettingViewModel INIT")
         viewModelScope.launch(Dispatchers.IO) {
-            displayName.postValue(InitialSettingFireStore.getDisplayName())
-            belong.postValue(InitialSettingFireStore.getBelong())
+            displayName.postValue(UserFireStore.getDisplayName())
+            belong.postValue(UserFireStore.getBelong())
         }
     }
 
     fun onSubmitButtonClick() {
         Log.d(TAG, "onSubmitButtonClick")
         viewModelScope.launch(Dispatchers.IO) {
-            InitialSettingFireStore.updateDisplayName(displayName.value)
-            InitialSettingFireStore.updateBelong(belong.value)
-            InitialSettingFireStore.uploadProfileImage(imageUri.value)
+            UserFireStore.updateDisplayName(displayName.value)
+            UserFireStore.updateBelong(belong.value)
+            UserFireStore.uploadProfileImage(imageUri.value)
         }
         navController.navigate(Screen.ContentScreen.route)
     }

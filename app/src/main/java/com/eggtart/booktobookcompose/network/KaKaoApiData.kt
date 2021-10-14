@@ -1,7 +1,5 @@
 package com.eggtart.booktobookcompose.network
 
-import kotlinx.coroutines.flow.StateFlow
-
 data class BookData(
     val meta: Meta,
     val documents: List<Document>

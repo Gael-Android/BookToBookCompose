@@ -8,7 +8,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.tasks.await
 
-object InitialSettingFireStore {
+object UserFireStore {
     private const val TAG = "KWK_InitialSettingFS"
     private val uid = FirebaseAuth.getInstance().currentUser?.uid.toString()
 

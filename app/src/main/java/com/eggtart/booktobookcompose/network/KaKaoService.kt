@@ -57,10 +57,12 @@ class KaKaoRemoteSource @Inject constructor(
 class KaKaoRepository @Inject constructor(
     kaKaoRemoteSource: KaKaoRemoteSource
 ) {
-    val books: Flow<Meta> = kaKaoRemoteSource.getBooks(9788901229614).map {
-        Log.d("KWK_REPO", it.toString())
-        it.meta
-    }
+    private val remoteSource = kaKaoRemoteSource
+    fun getBooks(query: Long): Flow<Meta> = remoteSource.getBooks(query)
+        .map {
+            Log.d("KWK_REPO", it.toString())
+            it.meta
+        }
 }
 
 

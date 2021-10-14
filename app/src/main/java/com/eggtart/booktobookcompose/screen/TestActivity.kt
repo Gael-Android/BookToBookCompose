@@ -38,7 +38,7 @@ class TestViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            kaKaoRepository.books
+            kaKaoRepository.getBooks(9788901229614)
                 .collect {
                     Log.d("KWK_VIEWMODEL", it.toString())
                     books.value = KaKaoAPIState.Success(it)
