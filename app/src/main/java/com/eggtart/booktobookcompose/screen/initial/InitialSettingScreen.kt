@@ -25,7 +25,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.eggtart.booktobookcompose.R
+import com.eggtart.booktobookcompose.navigation.Screen
+import com.eggtart.booktobookcompose.screen.content.ContentScreen
+import com.eggtart.booktobookcompose.screen.login.LoginScreen
 import com.eggtart.booktobookcompose.ui.theme.BookToBookComposeTheme
 import com.eggtart.booktobookcompose.viewmodel.InitialSettingViewModel
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -35,10 +41,6 @@ import com.skydoves.landscapist.glide.GlideImage
 @Composable
 fun InitialSettingScreen(viewModel: InitialSettingViewModel = viewModel()) {
     val context = LocalContext.current
-    val displayName: String by viewModel.displayName.observeAsState("")
-    val belong: String by viewModel.belong.observeAsState("")
-    val imageUri: Uri? by viewModel.imageUri.observeAsState(null)
-    Log.d("KWK", "InitialSettingScreen")
 
     val startForProfileImageResult =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -50,12 +52,10 @@ fun InitialSettingScreen(viewModel: InitialSettingViewModel = viewModel()) {
                     val fileUri = data?.data!!
                     viewModel.setImageUri(fileUri)
                 }
-                ImagePicker.RESULT_ERROR -> {
+                ImagePicker.RESULT_ERROR ->
                     Toast.makeText(context, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-                }
-                else -> {
+                else ->
                     Toast.makeText(context, "Task Canceled", Toast.LENGTH_SHORT).show()
-                }
             }
         }
 
@@ -69,17 +69,19 @@ fun InitialSettingScreen(viewModel: InitialSettingViewModel = viewModel()) {
     }
 
     InitialSetting(
-        displayName = displayName,
-        belong = belong,
-        imageUri = imageUri,
+        displayName = viewModel.displayName.value,
+        belong = viewModel.belong.value,
+        imageUri = viewModel.imageUri.value,
         onSubmitButtonClick = { viewModel.onSubmitButtonClick() },
         onProfileImageClick = {
             imageLaunch()
             viewModel.onProfileImageClick()
         },
-        onDisplayNameChanged = { viewModel.onDisplayNameChanged(it) },
-        onBelongChanged = { viewModel.onBelongChanged(it) }
+        onDisplayNameChanged = { viewModel.setDisplayName(it) },
+        onBelongChanged = { viewModel.setBelong(it) }
     )
+
+
 }
 
 @Composable
@@ -129,20 +131,6 @@ fun InitialSetting(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewInitialSetting() {
-    InitialSetting(
-        displayName = "임의의 이름",
-        belong = "임의의 장소",
-        imageUri = null,
-        onSubmitButtonClick = { },
-        onProfileImageClick = { },
-        onDisplayNameChanged = { },
-        onBelongChanged = { }
-    )
 }
 
 @Composable

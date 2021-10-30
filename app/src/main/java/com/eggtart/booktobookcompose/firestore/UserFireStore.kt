@@ -6,7 +6,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+
 
 object UserFireStore {
     private const val TAG = "KWK_InitialSettingFS"
@@ -23,29 +27,32 @@ object UserFireStore {
         }
     }
 
-    suspend fun getDisplayName(): String? {
+    fun getDisplayName(): Flow<String> = callbackFlow {
+        Log.d(TAG, "getDisplayName()")
         val db = Firebase.firestore
-        return try {
-            db.collection("user").document(uid)
+        try {
+            db.collection("user")
+                .document(uid)
                 .get()
                 .await()
                 .data?.get("displayName").toString()
-        } catch (exception: Exception) {
-            Log.d("KWK", "get failed with ", exception)
-            ""
+        } catch (e: Throwable) {
+            Log.d("KWK", "get failed with ", e)
+            close(e)
         }
     }
 
-    suspend fun getBelong(): String? {
+    fun getBelong(): Flow<String> = callbackFlow {
+        Log.d(TAG, "getBelong()")
         val db = Firebase.firestore
-        return try {
+        try {
             db.collection("user").document(uid)
                 .get()
                 .await()
                 .data?.get("belong").toString()
-        } catch (exception: Exception) {
-            Log.d("KWK", "get failed with ", exception)
-            ""
+        } catch (e: Throwable) {
+            Log.d("KWK", "get failed with ", e)
+            close(e)
         }
     }
 

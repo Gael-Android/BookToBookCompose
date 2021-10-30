@@ -39,6 +39,21 @@ sealed class BottomNavigation(
 }
 
 
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
+@ExperimentalPermissionsApi
+class HomeActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("KWK", "HomeActivity")
+
+        super.onCreate(savedInstanceState)
+        setContent {
+            Navigation()
+        }
+    }
+}
+
 @ExperimentalPermissionsApi
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
@@ -60,21 +75,6 @@ fun Navigation() {
         }
         composable(route = Screen.ContentScreen.route) {
             ContentScreen()
-        }
-    }
-}
-
-@ExperimentalPagerApi
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
-@ExperimentalPermissionsApi
-class HomeActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("KWK", "HomeActivity")
-
-        super.onCreate(savedInstanceState)
-        setContent {
-            Navigation()
         }
     }
 }
